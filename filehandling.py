@@ -2,8 +2,6 @@
 This file is for the methods concerning everything from file reading to file writing
 """
 import re
-import xml.etree.ElementTree as XElementTree
-import id3algorithm as id3
 
 
 def read_data_names(filepath: str):

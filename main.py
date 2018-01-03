@@ -2,7 +2,7 @@
 This file is for executing everything together
 """
 import filehandling as fiha
-import id3algorithm as id3
+import naivebayes as naba
 
 
 filepathnames = "datasets/cardaten/carnames.txt"
