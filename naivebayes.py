@@ -42,7 +42,11 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
             classprob = []
             for p in range(0, len(classes)):
                 classattrbfrequency = sum((inst[-1] == classes[p] and inst[i] == attribute_values[i][k]) for inst in instances)
-                classprob.append([classes[p], classattrbfrequency/numclassinstances[p][1]])
+                # attribute probability with laplace smoothing and assuming uniform distribution
+                attrbprobability = (classattrbfrequency + 1/len(attribute_values[i])) / (numclassinstances[p][1] + 1)
+                # without laplace smoothing
+                # attrbprobability = (classattrbfrequency) / (numclassinstances[p][1])
+                classprob.append([classes[p], attrbprobability])
 
             valueline = [attribute_values[i][k], classprob]
             valueslines.append(valueline)

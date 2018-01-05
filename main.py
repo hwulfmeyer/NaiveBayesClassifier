@@ -8,8 +8,8 @@ import naivebayes as naba
 filepathnames = "datasets/cardaten/carnames.data"
 filepathdata = "datasets/cardaten/car.data"
 
-#filepathnames = "datasets/tennisdaten/tennisnames.data"
-#filepathdata = "datasets/tennisdaten/tennis.data"
+filepathnames = "datasets/tennisdaten/tennisnames.data"
+filepathdata = "datasets/tennisdaten/tennis.data"
 
 # read data
 classes, attributes, attribute_values = fiha.read_data_names(filepath=filepathnames)
