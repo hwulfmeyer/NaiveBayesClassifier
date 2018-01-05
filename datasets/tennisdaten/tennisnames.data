@@ -1,0 +1,6 @@
+class values: yes, no
+attributes: outlook, temperature, humidity, wind
+outlook: rain, overcast, sunny
+temperature: cool, mild, hot
+humidity: normal, high
+wind: weak, strong
