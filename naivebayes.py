@@ -4,6 +4,8 @@ This file is for the methods concerning everything naive bayes
 1. separate it in 2 clusters(1 Training , 2 Test) [DONE]
 2. calculate all probabilities from training data [DONE]
 3. afterwards make a function to use this probabilities and to decide to which class it is belonged
+4. calculate error rate
+5. Determine the mean error rate over 100 different random samples of training data.
 """
 
 
