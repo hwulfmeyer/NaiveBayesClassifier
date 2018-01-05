@@ -40,7 +40,7 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
             classprob = []
             for p in range(0, len(classes)):
                 classattrbfrequency = sum((inst[-1] == classes[p] and inst[i] == attribute_values[i][k]) for inst in instances)
-                classprob.append([classes[p], classattrbfrequency/numclassinstances[p][1] ])
+                classprob.append([classes[p], classattrbfrequency/numclassinstances[p][1]])
 
             valueline = [attribute_values[i][k], classprob]
             valueslines.append(valueline)

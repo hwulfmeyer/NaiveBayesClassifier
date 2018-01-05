@@ -16,11 +16,11 @@ classes, attributes, attribute_values = fiha.read_data_names(filepath=filepathna
 instances = fiha.read_data(filepath=filepathdata)
 print("Number of Classes: " + str(len(classes)))
 print("Number of Attributes: " + str(len(attributes)))
-print("Number of Instances: " + str(len(instances)))
+train_data, test_data = fiha.separation(instances)
+print("Number of Training Instances: " + str(len(train_data)))
 
-train_dataset, test_set = fiha.separation(instances)
 
-class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_dataset)
+class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_data)
 
 print(class_prob)
 for attribut in attrib_prob:
