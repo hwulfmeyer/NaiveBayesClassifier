@@ -1,7 +1,7 @@
 """
 This file is for the methods concerning everything naive bayes
 
-1. separate it in 2 clusters(1 Training , 2 Test)
+1. separate it in 2 clusters(1 Training , 2 Test) [DONE]
 2. calculate all probabilities from training data [DONE]
 3. afterwards make a function to use this probabilities and to decide to which class it is belonged
 """
@@ -9,6 +9,7 @@ This file is for the methods concerning everything naive bayes
 
 def calculate_probabilities(classes: list, attributes: list, attribute_values: list, instances: list):
     """
+    function for calculation of probabilities of classes and attributes and their corresponding classes
 
     :param classes: is a one-dimensional list containing the class names
     :param attributes: is one dimensional list that contains the names of attributes

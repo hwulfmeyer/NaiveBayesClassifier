@@ -2,6 +2,7 @@
 This file is for the methods concerning everything from file reading to file writing
 """
 import re
+import random
 
 
 def read_data_names(filepath: str):
@@ -48,4 +49,11 @@ def read_data(filepath: str):
     return data
 
 
-
+def separation(instances):
+    size_train = int((len(instances)) * 2 / 3)
+    train_dataset = []
+    test_set = list(instances)  # copy the full list
+    while len(train_dataset) < size_train:
+        index = random.randrange(len(test_set))  # find the random index to append in train data set
+        train_dataset.append(test_set.pop(index))  # reduce the size of test set and increase and add the inctances in trainset
+    return train_dataset, test_set
