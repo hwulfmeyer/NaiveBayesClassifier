@@ -4,7 +4,7 @@ This file is for the methods concerning everything naive bayes
 1. separate it in 2 clusters(1 Training , 2 Test) [DONE]
 2. calculate all probabilities from training data [DONE]
 3. afterwards make a function to use this probabilities and to decide to which class it is belonged [DONE]
-4. calculate error rate
+4. calculate error rate [DONE]
 5. Determine the mean error rate over 100 different random samples of training data.
 """
 
@@ -107,4 +107,12 @@ def get_class(classprobs: list, attributeline: list, inputvector: list):
 
 
 def calculate_error(dataclasses):
-    return 0
+    wrong = 0
+    correct = 0
+
+    for d in dataclasses:
+            if d[0] == d[1]:
+                correct += 1
+            else:
+                wrong += 1
+    return wrong / (wrong+correct)

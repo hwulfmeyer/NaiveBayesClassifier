@@ -24,7 +24,7 @@ class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attr
 testdata_classes = naba.get_classes(class_prob, attrib_prob, test_data)
 print(testdata_classes)
 test_error = naba.calculate_error(testdata_classes)
-
+print(test_error)
 
 
 
