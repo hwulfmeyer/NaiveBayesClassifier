@@ -22,17 +22,11 @@ print("Number of Test Instances: " + str(len(test_data)))
 
 class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_data)
 iprobs = naba.class_probability(class_prob, attrib_prob, test_data[0])
-iclass = naba.choosing_of_class(iprobs, classes)
-
-print(attrib_prob[5][1][0][1][2])
-
-#for x in attrib_prob:
-    #print(x)
+print(naba.choosing_of_class(iprobs, class_prob))
 
 print("")
 print(test_data[0])
 print(iprobs)
-print(iclass)
 
 
 

@@ -3,7 +3,7 @@ This file is for the methods concerning everything naive bayes
 
 1. separate it in 2 clusters(1 Training , 2 Test) [DONE]
 2. calculate all probabilities from training data [DONE]
-3. afterwards make a function to use this probabilities and to decide to which class it is belonged
+3. afterwards make a function to use this probabilities and to decide to which class it is belonged [DONE]
 4. calculate error rate
 5. Determine the mean error rate over 100 different random samples of training data.
 """
@@ -56,23 +56,23 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
     return numclassinstances, attributeline
 
 
-def class_probability(numclassinstances: list, attributeline: list, inputvector):
+def class_probability(classprobs: list, attributeline: list, inputvector):
     probs = []
-    for i in range(len(numclassinstances)):  # iterate over classes
-        probofclass = numclassinstances[i][3]  # get class probability
+    for i in range(len(classprobs)):  # iterate over classes
+        probofclass = classprobs[i][3]  # get class probability
         for j in range(len(attributeline)):  # iterate over attributes
             for k in range(len(attributeline[j][1])):  # iterate over attribute values
                 if attributeline[j][1][k][0] == inputvector[j]:
-                    probofclass *= attributeline[j][1][k][1][i][1] # get value-class probability
+                    probofclass *= attributeline[j][1][k][1][i][1]  # get value-class probability
         probs.append(probofclass)
     return probs
 
 
-def choosing_of_class(probs: list, numclassinstances: list):
+def choosing_of_class(probs: list, classprobs: list):
     maxprob = 0
     index = 0
     for i in range(len(probs)):
         if probs[i] > maxprob:
             maxprob = probs[i]
             index = i
-    return numclassinstances[index], maxprob
+    return classprobs[index], maxprob
