@@ -9,21 +9,21 @@ This file is for the methods concerning everything naive bayes
 """
 
 
-def calculate_probabilities(classes: list, attributes: list, attribute_values: list, instances: list):
+def calculate_probabilities(classes: list, attributes: list, attribute_values: list, instances: list, smoothing: bool):
     """
     function for calculation of probabilities of classes and attributes and their corresponding classes
 
     :param classes: is a one-dimensional list containing the class names
     :param attributes: is one dimensional list that contains the names of attributes
     :param attribute_values: is a two-dimensional list where each row respresents
-            one attribute(in the order of 'attributes') and the possible values
+        one attribute(in the order of 'attributes') and the possible values
     :param instances: is a two-dimensional list where each row respresents
-          one attribute(in the order of 'attributes') and the possible values
+        one attribute(in the order of 'attributes') and the possible values
+    :param smoothing: is a boolean parameter that decides if smoothing should be used or not
     :return:
     numclassinstances: a 2-dimensional list containg the classes, the total frequency, the number of total instances
-    and the fraction of instances being that class
-    attributeline:  a x-dimensional list containg the attributes with their values and how many of these values
-    correspond to a specific class
+        and the fraction of instances being that class
+    attributeline: a x-dimensional list containing the probability of each attribute value to occur under a specific class
     """
     if len(instances) == 0:
         return 0, []
@@ -42,10 +42,12 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
             classprob = []
             for p in range(0, len(classes)):
                 classattrbfrequency = sum((inst[-1] == classes[p] and inst[i] == attribute_values[i][k]) for inst in instances)
-                # attribute probability with laplace smoothing and assuming uniform distribution
-                attrbprobability = (classattrbfrequency + 1/len(attribute_values[i])) / (numclassinstances[p][1] + 1)
-                # without laplace smoothing
-                # attrbprobability = (classattrbfrequency) / (numclassinstances[p][1])
+                if smoothing:
+                    # attribute probability with laplace smoothing and assuming uniform distribution
+                    attrbprobability = (classattrbfrequency + 1/len(attribute_values[i])) / (numclassinstances[p][1] + 1)
+                else:
+                    # without laplace smoothing
+                    attrbprobability = classattrbfrequency / numclassinstances[p][1]
                 classprob.append([classes[p], attrbprobability])
 
             valueline = [attribute_values[i][k], classprob]
@@ -56,7 +58,36 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
     return numclassinstances, attributeline
 
 
-def class_probability(classprobs: list, attributeline: list, inputvector):
+def get_classes(classprobs: list, attributeline: list, data: list):
+    """
+    function to get the predicted classes of each instance in data
+
+    :param classprobs: a 2-dimensional list containg the classes, the total frequency, the number of total instances
+        and the fraction of instances being that class
+    :param attributeline: a x-dimensional list containing the probability of each attribute value to occur under a
+        specific class
+    :param data: is a two-dimensional list where each row respresents
+        one attribute(in the order of 'attributes') and the possible values
+    :return: a 1-dimensional list containg the predicted and orignal class of each instance in data
+    """
+    dataclasses = []
+    for d in data:
+        dataclasses.append([d[-1], get_class(classprobs, attributeline, d)])
+    return dataclasses
+
+
+def get_class(classprobs: list, attributeline: list, inputvector: list):
+    """
+    function to calculate the probabilties of all class of a specific instance and after that get the classes
+    with the highest probability
+
+    :param classprobs: a 2-dimensional list containg the classes, the total frequency, the number of total instances
+        and the fraction of instances being that class
+    :param attributeline: a x-dimensional list containing the probability of each attribute value to occur under a
+        specific class
+    :param inputvector: a 1-dimensional list being one instance of a specific data
+    :return: the name of the class with the highest probability
+    """
     probs = []
     for i in range(len(classprobs)):  # iterate over classes
         probofclass = classprobs[i][3]  # get class probability
@@ -65,14 +96,15 @@ def class_probability(classprobs: list, attributeline: list, inputvector):
                 if attributeline[j][1][k][0] == inputvector[j]:
                     probofclass *= attributeline[j][1][k][1][i][1]  # get value-class probability
         probs.append(probofclass)
-    return probs
 
-
-def choosing_of_class(probs: list, classprobs: list):
     maxprob = 0
     index = 0
     for i in range(len(probs)):
         if probs[i] > maxprob:
             maxprob = probs[i]
             index = i
-    return classprobs[index], maxprob
+    return classprobs[index][0]
+
+
+def calculate_error(dataclasses):
+    return 0

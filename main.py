@@ -20,13 +20,11 @@ train_data, test_data = fiha.separation(instances)
 print("Number of Training Instances: " + str(len(train_data)))
 print("Number of Test Instances: " + str(len(test_data)))
 
-class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_data)
-iprobs = naba.class_probability(class_prob, attrib_prob, test_data[0])
-print(naba.choosing_of_class(iprobs, class_prob))
+class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_data, True)
+testdata_classes = naba.get_classes(class_prob, attrib_prob, test_data)
+print(testdata_classes)
+test_error = naba.calculate_error(testdata_classes)
 
-print("")
-print(test_data[0])
-print(iprobs)
 
 
 
