@@ -20,10 +20,10 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
     :param instances: is a two-dimensional list where each row respresents
           one attribute(in the order of 'attributes') and the possible values
     :return:
-    numclassinstances: a 2-dimensional list containg the classes, the total frequency, the number of total instances and the
-    fraction of instances being that class
-    attributeline:  a 4-dimensional list containg the attributes with their values and how many of these values correespond
-    to a specific class
+    numclassinstances: a 2-dimensional list containg the classes, the total frequency, the number of total instances
+    and the fraction of instances being that class
+    attributeline:  a x-dimensional list containg the attributes with their values and how many of these values
+    correspond to a specific class
     """
     if len(instances) == 0:
         return 0, []
@@ -56,3 +56,23 @@ def calculate_probabilities(classes: list, attributes: list, attribute_values: l
     return numclassinstances, attributeline
 
 
+def class_probability(numclassinstances: list, attributeline: list, inputvector):
+    probs = []
+    for i in range(len(numclassinstances)):  # iterate over classes
+        probofclass = numclassinstances[i][3]  # get class probability
+        for j in range(len(attributeline)):  # iterate over attributes
+            for k in range(len(attributeline[j][1])):  # iterate over attribute values
+                if attributeline[j][1][k][0] == inputvector[j]:
+                    probofclass *= attributeline[j][1][k][1][i][1] # get value-class probability
+        probs.append(probofclass)
+    return probs
+
+
+def choosing_of_class(probs: list, numclassinstances: list):
+    maxprob = 0
+    index = 0
+    for i in range(len(probs)):
+        if probs[i] > maxprob:
+            maxprob = probs[i]
+            index = i
+    return numclassinstances[index], maxprob
