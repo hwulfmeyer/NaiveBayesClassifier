@@ -27,7 +27,7 @@ print("Error rate: " + str(test_error))
 
 # get mean error over k samples
 mean_error = 0
-k = 100000
+k = 100
 for x in range(k):
     train_data, test_data = fiha.separation(instances)
     class_prob, attrib_prob = naba.calculate_probabilities(classes, attributes, attribute_values, train_data, 0.1)
@@ -37,7 +37,6 @@ mean_error = mean_error / k
 print("Mean Error over " + str(k) + " samples: " + str(mean_error))
 
 confusion_matrix = naba.get_confusion_matrix(classes, testdata_classes)
-
 print("\nConfusion Matrix:")
 for x in confusion_matrix:
     print(x)
